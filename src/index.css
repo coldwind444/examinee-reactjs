@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import 'tailwindcss';
+@import 'normalize.css';
+
+:root {
+  --roboto-font: 'Roboto', sans-serif;
+  --poppins-font: 'Poppins', sans-serif;
+  --itim-font: 'Itim', cursive;
+
+  --md-green: #15BF6E;
+  --decorate-green: #A3F6B3;
+  --dark-mint: #0EA697;
+  --md-mint: #04BEAB;
+  --pale-green: #C8FCE3;
+  --primary-dark-green: #0BB062;
+  --pale-mint: #BFEEE9;
+  --correct-green-bg: #94E8BB;
+  --correct-green-text: #09763C;
+
+  --light-orange: #F4A643;
+  --md-orange: #F27703;
+  --pale-orange: #FFE7C8;
+
+  --deep-pink: #DE3067;
+  --pale-pink: #F7DBE4;
+
+  --dark-blue: #143475;
+  --pale-blue: #CFF3FF;
+  --steel: #6891A7;
+  --dodger-blue: #0D99FF;
+  --royal-blue: #2C67F2;
+  --light-blue: #D3E0FF;
+
+  --gray-green: #E9E9E9;
+  --tab-hover-bg: #E5ECEB;
+
+  --md-purple: #9316E0;
+
+  --md-red: #F85355;
+  --incorrect-red-bg: #FEA6A7;
+  --incorrect-red-text: #800507;
+}
+
+label {
+  user-select: none;
+  cursor: pointer;
+}
+
+input::selection {
+  background-color: #3e3d5d;
+  color: white;
+}
