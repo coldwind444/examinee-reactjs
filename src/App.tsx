@@ -4,6 +4,9 @@ import { AuthLayout } from "./components/layouts/AuthLayout/AuthLayout"
 import { LoginPage } from "./pages/LoginPage/LoginPage"
 import { SignUpPage } from "./pages/SignUpPage/SignUpPage"
 import { PasswordResetPage } from "./pages/PasswordResetPage/PasswordResetPage"
+import { AppLayout } from "./components/layouts/AppLayout/AppLayout"
+import { HomePage } from "./pages/HomePage/HomePage"
+import { LibraryPage } from "./pages/LibraryPage/LibraryPage"
 
 function App() {
   return (
@@ -13,6 +16,10 @@ function App() {
         <Route path="login" element={<LoginPage/>}/>
         <Route path="signup" element={<SignUpPage/>}/>
         <Route path="password-reset" element={<PasswordResetPage/>}/>
+      </Route>
+      <Route path="/app" element={<AppLayout/>}>
+        <Route path="home" element={<HomePage/>}/>
+        <Route path="library" element={<LibraryPage/>}/>
       </Route>
     </Routes>
   )
