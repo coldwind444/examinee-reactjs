@@ -7,6 +7,8 @@
   --poppins-font: 'Poppins', sans-serif;
   --itim-font: 'Itim', cursive;
 
+  --white-bg: #F8F8FF;
+
   --md-green: #15BF6E;
   --decorate-green: #A3F6B3;
   --dark-mint: #0EA697;
@@ -41,6 +43,10 @@
   --incorrect-red-text: #800507;
 }
 
+html {
+  font-family: var(--roboto-font);
+}
+
 label {
   user-select: none;
   cursor: pointer;
@@ -49,4 +55,12 @@ label {
 input::selection {
   background-color: #3e3d5d;
   color: white;
+}
+
+input::-ms-reveal {
+  display: none;
+}
+input::-webkit-credentials-auto-fill-button {
+  visibility: hidden;
+  display: none !important;
 }
