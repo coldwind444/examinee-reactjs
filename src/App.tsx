@@ -7,6 +7,7 @@ import { PasswordResetPage } from "./pages/PasswordResetPage/PasswordResetPage"
 import { AppLayout } from "./components/layouts/AppLayout/AppLayout"
 import { HomePage } from "./pages/HomePage/HomePage"
 import { LibraryPage } from "./pages/LibraryPage/LibraryPage"
+import { AttemptPage } from "./pages/AttemptPage/AttemptPage"
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path="/app" element={<AppLayout/>}>
         <Route path="home" element={<HomePage/>}/>
         <Route path="library" element={<LibraryPage/>}/>
+        <Route path="attempts" element={<AttemptPage/>}/>
       </Route>
     </Routes>
   )
