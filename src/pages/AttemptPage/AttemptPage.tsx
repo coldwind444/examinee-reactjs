@@ -45,7 +45,7 @@ export const AttemptPage = () => {
         <div className={clsx('flex flex-col gap-[20px] pl-[40px]')}>
             <div className={clsx('flex flex-row mt-[20px] items-center gap-[10px]')}>
                 <FontAwesomeIcon icon={faAngleLeft} />
-                <label className={clsx('text-[25px] font-semibold')}>Đề thi Toán THPTQG</label>
+                <label className={clsx('text-[22px] font-semibold')}>Đề thi Toán THPTQG</label>
             </div>
             <div className="w-[1100px]">
                 <table className="table-auto mt-[20px] w-full">

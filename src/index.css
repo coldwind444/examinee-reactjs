@@ -14,7 +14,7 @@
   --dark-mint: #0EA697;
   --md-mint: #04BEAB;
   --pale-green: #C8FCE3;
-  --primary-dark-green: #0BB062;
+  --dark-green: #0BB062;
   --x-pale-mint: #ddf5f2;
   --pale-mint: #BFEEE9;
   --correct-green-bg: #94E8BB;
@@ -64,4 +64,19 @@ input::-ms-reveal {
 input::-webkit-credentials-auto-fill-button {
   visibility: hidden;
   display: none !important;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background: #d9d9d9;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    /* Tailwind's blue-400 */
+    border-radius: 4px;
 }

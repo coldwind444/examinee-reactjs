@@ -8,6 +8,9 @@ import { AppLayout } from "./components/layouts/AppLayout/AppLayout"
 import { HomePage } from "./pages/HomePage/HomePage"
 import { LibraryPage } from "./pages/LibraryPage/LibraryPage"
 import { AttemptPage } from "./pages/AttemptPage/AttemptPage"
+import { ExamPage } from "./pages/ExamPage/ExamPage"
+import { PublishPage } from "./pages/PublishPage/PublishPage"
+import { ResultPage } from "./pages/ResultPage/ResultPage"
 
 function App() {
   return (
@@ -22,7 +25,10 @@ function App() {
         <Route path="home" element={<HomePage/>}/>
         <Route path="library" element={<LibraryPage/>}/>
         <Route path="attempts" element={<AttemptPage/>}/>
+        <Route path="publish" element={<PublishPage/>}/>
+        <Route path="result" element={<ResultPage/>}/>
       </Route>
+      <Route path="/exam/attend" element={<ExamPage/>}/>
     </Routes>
   )
 }
