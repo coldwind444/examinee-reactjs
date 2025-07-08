@@ -32,7 +32,7 @@ export const ResultPage = () => {
     ]
 
     return (
-        <div className={clsx('flex flex-col gap-[20px] pl-[40px]')}>
+        <div className={clsx('flex flex-col gap-[20px] pl-[40px] relative')}>
             <div className={clsx('flex flex-row mt-[20px] items-center gap-[10px]')}>
                 <FontAwesomeIcon icon={faAngleLeft} />
                 <label className={clsx('text-[22px] font-semibold')}>Đề thi Toán THPTQG</label>

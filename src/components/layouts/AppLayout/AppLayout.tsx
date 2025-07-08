@@ -1,13 +1,24 @@
 import clsx from "clsx"
 import logo from '../../../assets/checked.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCube, faHistory, faHome, faPenClip, faSignOut } from "@fortawesome/free-solid-svg-icons"
-import { useState } from "react"
+import { faCheck, faClose, faCube, faHistory, faHome, faPenClip, faSignOut } from "@fortawesome/free-solid-svg-icons"
+import { useState, useRef } from "react"
 import { faBell } from "@fortawesome/free-regular-svg-icons"
 import { Outlet } from "react-router-dom"
 
 export const AppLayout = () => {
+    const popupRef = useRef<HTMLDivElement>(null)
+
     const [tab, setTab] = useState(1)
+    const [popup, setPopup] = useState(true)
+
+    const q = {
+        order: 1,
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        choices: ['Something A', 'Something B', 'Something C', 'Something D'],
+        key: 'A',
+        answer: 'A'
+    }
 
     return (
         <div className={clsx('flex flex-row h-screen w-screen bg-(--white-bg)')}>
@@ -88,6 +99,65 @@ export const AppLayout = () => {
                 </div>
                 <div className="flex-1">
                     <Outlet/>
+                </div>
+            </div>
+            <div className={
+                clsx("flex items-center justify-center absolute h-screen w-screen", { 'hidden': !popup , 'visible': popup})}>
+                <div className="h-full w-full bg-[rgba(0,0,0,0.5)]" onClick={() => setPopup(false)}></div>
+                <div id="popup" ref={popupRef} className={clsx('flex flex-col absolute  h-[500px] w-[900px] bg-(--white-bg) rounded-[10px] p-[15px]')}>
+                    <FontAwesomeIcon className="ml-auto cursor-pointer" icon={faClose} onClick={() => setPopup(false)}/>
+                    <label className="ml-[30px] mt-[10px] text-[18px] font-medium text-(--dark-mint)">{`Question ${q.order}:`}</label>
+                    <div className="ml-[30px] mt-[30px] flex flex-col gap-[20px] overflow-y-scroll custom-scrollbar">
+                        <p className="text-justify text-wrap w-[800px] font-medium">
+                            {q.content}
+                        </p>
+                        <div className="flex flex-col gap-[20px] mt-[10px] ml-[20px]">
+                            {q.choices.map((val, idx) => {
+                                const letter = String.fromCharCode(idx+65)
+                                const isCorrectAnswer = letter === q.key;
+                                const isUserAnswer = letter === q.answer;
+                                const isCorrect = q.key === q.answer;
+
+                                return (
+                                    <div key={idx} className="flex flex-row gap-[15px] items-start">
+                                        <label
+                                            className={clsx("font-semibold", {
+                                                "text-(--dark-green)": isCorrectAnswer,
+                                                "text-(--md-red)": !isCorrect && isUserAnswer,
+                                            })}
+                                        >
+                                            {`${letter}.`}
+                                        </label>
+
+                                        <label
+                                            className={clsx("font-medium", {
+                                                "text-(--dark-green)": isCorrectAnswer,
+                                                "text-(--md-red)": !isCorrect && isUserAnswer,
+                                            })}
+                                        >
+                                            {val}
+                                        </label>
+
+                                        {isUserAnswer && (
+                                            <div className="flex flex-row ml-[15px] gap-[10px] items-center">
+                                                <FontAwesomeIcon
+                                                    className={clsx({
+                                                        "text-(--dark-green)": isCorrect,
+                                                        "text-(--md-red)": !isCorrect,
+                                                    })}
+                                                    icon={isCorrect ? faCheck : faClose}
+                                                />
+                                                <label className="font-semibold">
+                                                    {isCorrect ? "Correct" : "Incorrect"}
+                                                </label>
+                                            </div>
+                                        )}
+                                    </div>
+                                );
+                            })}
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
