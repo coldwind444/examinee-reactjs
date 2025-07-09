@@ -61,22 +61,44 @@ input::selection {
 input::-ms-reveal {
   display: none;
 }
+
 input::-webkit-credentials-auto-fill-button {
   visibility: hidden;
   display: none !important;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-    width: 5px;
+  width: 5px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-    border-radius: 5px;
-    background: #d9d9d9;
+  border-radius: 5px;
+  background: #d9d9d9;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.3);
-    /* Tailwind's blue-400 */
-    border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.3);
+  /* Tailwind's blue-400 */
+  border-radius: 4px;
+}
+
+.loader {
+  width: 25px;
+  height: 25px;
+  border: 5px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

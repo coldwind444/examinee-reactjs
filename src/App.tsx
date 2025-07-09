@@ -11,6 +11,7 @@ import { AttemptPage } from "./pages/AttemptPage/AttemptPage"
 import { ExamPage } from "./pages/ExamPage/ExamPage"
 import { PublishPage } from "./pages/PublishPage/PublishPage"
 import { ResultPage } from "./pages/ResultPage/ResultPage"
+import { OAuth2SuccessPage } from "./pages/OAuth2SuccessPage/OAuth2SuccessPage"
 
 function App() {
   return (
@@ -20,10 +21,13 @@ function App() {
         <Route path="login" element={<LoginPage/>}/>
         <Route path="signup" element={<SignUpPage/>}/>
         <Route path="password-reset" element={<PasswordResetPage/>}/>
+        <Route path="google/oauth2-success" element={<OAuth2SuccessPage/>}/>
       </Route>
       <Route path="/app" element={<AppLayout/>}>
         <Route path="home" element={<HomePage/>}/>
-        <Route path="library" element={<LibraryPage/>}/>
+        <Route path="library" element={<LibraryPage type={1}/>}/>
+        <Route path="my-exams" element={<LibraryPage type={2}/>}/>
+        <Route path="history" element={<LibraryPage type={3}/>}/>
         <Route path="attempts" element={<AttemptPage/>}/>
         <Route path="publish" element={<PublishPage/>}/>
         <Route path="result" element={<ResultPage/>}/>

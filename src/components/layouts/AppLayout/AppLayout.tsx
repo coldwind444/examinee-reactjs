@@ -2,15 +2,20 @@ import clsx from "clsx"
 import logo from '../../../assets/checked.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCheck, faClose, faCube, faHistory, faHome, faPenClip, faSignOut } from "@fortawesome/free-solid-svg-icons"
-import { useState, useRef } from "react"
+import { useState } from "react"
 import { faBell } from "@fortawesome/free-regular-svg-icons"
-import { Outlet } from "react-router-dom"
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
+import { useUser } from "../../../providers/UserContext"
+import { useAuth } from "../../../providers/AuthContext"
 
 export const AppLayout = () => {
-    const popupRef = useRef<HTMLDivElement>(null)
+    const { logout } = useAuth()
+    const { user } = useUser()
 
-    const [tab, setTab] = useState(1)
-    const [popup, setPopup] = useState(true)
+    const navigate = useNavigate()
+    const location = useLocation()
+
+    const [popup, setPopup] = useState(false)
 
     const q = {
         order: 1,
@@ -37,34 +42,34 @@ export const AppLayout = () => {
                     <div className={
                         clsx('flex flex-row gap-[30px] h-[50px] w-[210px] items-center text-[18px]',
                             'rounded-[25px] cursor-pointer hover:text-(--md-mint) transition-colors duration-100 ease-in',
-                            { 'bg-(--tab-hover-bg)': tab === 1 }
-                        )} onClick={() => { setTab(1) }}>
-                        <FontAwesomeIcon className={clsx("ml-[20px]", { 'text-(--md-mint)': tab === 1 })} icon={faHome} />
-                        <label className={clsx({ 'text-(--md-mint) font-semibold': tab === 1 })}>Home</label>
+                            { 'bg-(--tab-hover-bg)': location.pathname === '/app/home' }
+                        )} onClick={() => navigate('/app/home')}>
+                        <FontAwesomeIcon className={clsx("ml-[20px]", { 'text-(--md-mint)': location.pathname === '/app/home' })} icon={faHome} />
+                        <label className={clsx({ 'text-(--md-mint) font-semibold': location.pathname === '/app/home' })}>Home</label>
                     </div>
                     <div className={
                         clsx('flex flex-row gap-[30px] h-[50px] w-[210px] items-center text-[18px]',
                             'rounded-[25px] cursor-pointer hover:text-(--md-mint) transition-colors duration-100 ease-in',
-                            { 'bg-(--tab-hover-bg)': tab === 2 }
-                        )} onClick={() => { setTab(2) }}>
-                        <FontAwesomeIcon className={clsx("ml-[20px]", { 'text-(--md-mint)': tab === 2 })} icon={faCube} />
-                        <label className={clsx({ 'text-(--md-mint) font-semibold': tab === 2 })}>Library</label>
+                            { 'bg-(--tab-hover-bg)': location.pathname === '/app/library' }
+                        )} onClick={() => navigate('/app/library')}>
+                        <FontAwesomeIcon className={clsx("ml-[20px]", { 'text-(--md-mint)': location.pathname === '/app/library' })} icon={faCube} />
+                        <label className={clsx({ 'text-(--md-mint) font-semibold': location.pathname === '/app/library' })}>Library</label>
                     </div>
                     <div className={
                         clsx('flex flex-row gap-[30px] h-[50px] w-[210px] items-center text-[18px]',
                             'rounded-[25px] cursor-pointer hover:text-(--md-mint) transition-colors duration-100 ease-in',
-                            { 'bg-(--tab-hover-bg)': tab === 3 }
-                        )} onClick={() => { setTab(3) }}>
-                        <FontAwesomeIcon className={clsx("ml-[20px]", { 'text-(--md-mint)': tab === 3 })} icon={faPenClip} />
-                        <label className={clsx({ 'text-(--md-mint) font-semibold': tab === 3 })}>My exams</label>
+                            { 'bg-(--tab-hover-bg)': location.pathname === '/app/my-exams' }
+                        )} onClick={() => navigate('/app/my-exams')}>
+                        <FontAwesomeIcon className={clsx("ml-[20px]", { 'text-(--md-mint)': location.pathname === '/app/my-exams' })} icon={faPenClip} />
+                        <label className={clsx({ 'text-(--md-mint) font-semibold': location.pathname === '/app/my-exams' })}>My exams</label>
                     </div>
                     <div className={
                         clsx('flex flex-row gap-[30px] h-[50px] w-[210px] items-center text-[18px]',
                             'rounded-[25px] cursor-pointer hover:text-(--md-mint) transition-colors duration-100 ease-in',
-                            { 'bg-(--tab-hover-bg)': tab === 4 }
-                        )} onClick={() => { setTab(4) }}>
-                        <FontAwesomeIcon className={clsx("ml-[20px]", { 'text-(--md-mint)': tab === 4 })} icon={faHistory} />
-                        <label className={clsx({ 'text-(--md-mint) font-semibold': tab === 4 })}>History</label>
+                            { 'bg-(--tab-hover-bg)': location.pathname === '/app/history' }
+                        )} onClick={() => navigate('/app/history')}>
+                        <FontAwesomeIcon className={clsx("ml-[20px]", { 'text-(--md-mint)': location.pathname === '/app/history' })} icon={faHistory} />
+                        <label className={clsx({ 'text-(--md-mint) font-semibold': location.pathname === '/app/history' })}>History</label>
                     </div>
                 </div>
             </div>
@@ -89,10 +94,11 @@ export const AppLayout = () => {
                             clsx('flex items-center justify-center font-semibold ',
                                 'bg-(--pale-orange) h-[55px] w-[55px] rounded-full text-[20px]'
                             )}>
-                            T
+                            {user?.fname.charAt(0)}
                         </div>
-                        <label className="font-medium">Tan Nguyen</label>
-                        <div className={clsx('cursor-pointer mr-[50px] text-(--md-red)')}>
+                        <label className="font-medium">{`${user?.fname} ${user?.lname}`}</label>
+                        <div className={clsx('cursor-pointer mr-[50px] text-(--md-red)')}
+                            onClick={() => logout()}>
                             <FontAwesomeIcon icon={faSignOut} />
                         </div>
                     </div>
@@ -104,7 +110,7 @@ export const AppLayout = () => {
             <div className={
                 clsx("flex items-center justify-center absolute h-screen w-screen", { 'hidden': !popup , 'visible': popup})}>
                 <div className="h-full w-full bg-[rgba(0,0,0,0.5)]" onClick={() => setPopup(false)}></div>
-                <div id="popup" ref={popupRef} className={clsx('flex flex-col absolute  h-[500px] w-[900px] bg-(--white-bg) rounded-[10px] p-[15px]')}>
+                <div className={clsx('flex flex-col absolute  h-[500px] w-[900px] bg-(--white-bg) rounded-[10px] p-[15px]')}>
                     <FontAwesomeIcon className="ml-auto cursor-pointer" icon={faClose} onClick={() => setPopup(false)}/>
                     <label className="ml-[30px] mt-[10px] text-[18px] font-medium text-(--dark-mint)">{`Question ${q.order}:`}</label>
                     <div className="ml-[30px] mt-[30px] flex flex-col gap-[20px] overflow-y-scroll custom-scrollbar">
