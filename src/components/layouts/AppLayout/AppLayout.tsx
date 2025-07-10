@@ -2,28 +2,19 @@ import clsx from "clsx"
 import logo from '../../../assets/checked.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCheck, faClose, faCube, faHistory, faHome, faPenClip, faSignOut } from "@fortawesome/free-solid-svg-icons"
-import { useState } from "react"
 import { faBell } from "@fortawesome/free-regular-svg-icons"
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import { useUser } from "../../../providers/UserContext"
 import { useAuth } from "../../../providers/AuthContext"
+import { useApp } from "../../../providers/AppContext"
 
 export const AppLayout = () => {
     const { logout } = useAuth()
     const { user } = useUser()
+    const { rvObj, rvPopup, setRvPopup } = useApp()
 
     const navigate = useNavigate()
     const location = useLocation()
-
-    const [popup, setPopup] = useState(false)
-
-    const q = {
-        order: 1,
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        choices: ['Something A', 'Something B', 'Something C', 'Something D'],
-        key: 'A',
-        answer: 'A'
-    }
 
     return (
         <div className={clsx('flex flex-row h-screen w-screen bg-(--white-bg)')}>
@@ -108,21 +99,21 @@ export const AppLayout = () => {
                 </div>
             </div>
             <div className={
-                clsx("flex items-center justify-center absolute h-screen w-screen", { 'hidden': !popup , 'visible': popup})}>
-                <div className="h-full w-full bg-[rgba(0,0,0,0.5)]" onClick={() => setPopup(false)}></div>
+                clsx("flex items-center justify-center absolute h-screen w-screen", { 'hidden': !rvPopup , 'visible': rvPopup})}>
+                <div className="h-full w-full bg-[rgba(0,0,0,0.5)]" onClick={() => setRvPopup(false)}></div>
                 <div className={clsx('flex flex-col absolute  h-[500px] w-[900px] bg-(--white-bg) rounded-[10px] p-[15px]')}>
-                    <FontAwesomeIcon className="ml-auto cursor-pointer" icon={faClose} onClick={() => setPopup(false)}/>
-                    <label className="ml-[30px] mt-[10px] text-[18px] font-medium text-(--dark-mint)">{`Question ${q.order}:`}</label>
-                    <div className="ml-[30px] mt-[30px] flex flex-col gap-[20px] overflow-y-scroll custom-scrollbar">
+                    <FontAwesomeIcon className="ml-auto cursor-pointer" icon={faClose} onClick={() => setRvPopup(false)}/>
+                    <label className="ml-[30px] mt-[10px] text-[18px] font-medium text-(--dark-mint)">{`Question ${rvObj?.question.order}:`}</label>
+                    <div className="ml-[30px] mt-[30px] flex flex-col gap-[20px] overflow-y-auto custom-scrollbar">
                         <p className="text-justify text-wrap w-[800px] font-medium">
-                            {q.content}
+                            {rvObj?.question.content}
                         </p>
                         <div className="flex flex-col gap-[20px] mt-[10px] ml-[20px]">
-                            {q.choices.map((val, idx) => {
+                            {rvObj?.question.choices.map((val, idx) => {
                                 const letter = String.fromCharCode(idx+65)
-                                const isCorrectAnswer = letter === q.key;
-                                const isUserAnswer = letter === q.answer;
-                                const isCorrect = q.key === q.answer;
+                                const isCorrectAnswer = letter === rvObj.question.key;
+                                const isUserAnswer = letter === rvObj.answer;
+                                const isCorrect = rvObj.question.key === rvObj.answer;
 
                                 return (
                                     <div key={idx} className="flex flex-row gap-[15px] items-start">
@@ -141,7 +132,7 @@ export const AppLayout = () => {
                                                 "text-(--md-red)": !isCorrect && isUserAnswer,
                                             })}
                                         >
-                                            {val}
+                                            {val.content}
                                         </label>
 
                                         {isUserAnswer && (

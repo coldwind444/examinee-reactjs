@@ -6,10 +6,12 @@ import { useEffect, useState } from "react"
 import { useAuth } from "../../providers/AuthContext"
 import { getAttempts } from "../../apis/attempt"
 import type { Attempt } from "../../models/responses/attempt/Attempt"
+import { useNavigate } from "react-router-dom"
 
 export const AttemptPage = () => {
     const { jwt } = useAuth()
-    const { detailEid } = useApp()
+    const { detailEid, setAttempt } = useApp()
+    const navigate = useNavigate()
 
     const [attempts, setAttempts] = useState<Attempt[]>([])
     const [attSection, setAttSection] = useState(0)
@@ -22,6 +24,11 @@ export const AttemptPage = () => {
         } else {
             if (attSection > 0) setAttSection(prev => prev - 1)
         }
+    }
+
+    const handleViewDetail = (att: Attempt) => {
+        setAttempt(att)
+        navigate('/app/history/attempts/result')
     }
 
     const splitDateTime = (input: string | Date) : { date: string; time: string } | null => {
@@ -66,7 +73,7 @@ export const AttemptPage = () => {
 
     return (
         <div className={clsx('flex flex-col gap-[20px] pl-[40px]')}>
-            <div className={clsx('flex flex-row mt-[20px] items-center gap-[10px]')}>
+            <div className={clsx('flex flex-row mt-[20px] items-center gap-[10px]')} onClick={() => navigate('/app/history')}>
                 <FontAwesomeIcon icon={faAngleLeft} />
                 <label className={clsx('text-[22px] font-semibold')}>{detailEid?.title}</label>
             </div>
@@ -103,7 +110,7 @@ export const AttemptPage = () => {
                                             'text-(--deep-pink) ml-auto mr-auto hover:opacity-90',
                                             'cursor-pointer bg-(--deep-pink) text-white',
                                             'transition-opacity duration-100 ease-in'
-                                        )}>
+                                        )} onClick={() => handleViewDetail(value)}>
                                         View details
                                     </div>
                                 </td>
@@ -113,7 +120,9 @@ export const AttemptPage = () => {
                 </table>
             </div>
             <div className='flex flex-row items-center justify-between mt-[10px] w-[1100px]'>
-                <label className='text-[rgba(0,0,0,0.5)] font-medium text-[14px]'>Showing 1 to 5 of 20 results</label>
+                <label className='text-[rgba(0,0,0,0.5)] font-medium text-[14px]'>
+                    {`Showing ${attSection*5 + 1} to ${attSection*5 + 5 < attempts.length ? attSection*5 + 5 : attempts.length} of ${attempts.length} results`}
+                </label>
                 <div className='flex flex-row gap-[10px]'>
                     <div className={
                         clsx('flex items-center justify-center h-[40px] w-[100px] rounded-[8px]',

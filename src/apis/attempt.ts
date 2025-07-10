@@ -6,7 +6,7 @@ import { createApiWithToken } from "./base"
 
 export const getRecent = async (token: string): Promise<ApiResponse<Exam[]>> => {
     const api = createApiWithToken(token)
-    const res = await api.get('/attempts/recent')
+    const res = await api.get('/attempts/recently')
     return res.data
 }
 
