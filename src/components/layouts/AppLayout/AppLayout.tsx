@@ -60,16 +60,16 @@ export const AppLayout = () => {
                             'rounded-[25px] cursor-pointer hover:text-(--md-mint) transition-colors duration-100 ease-in',
                             { 'bg-(--tab-hover-bg)': location.pathname === '/app/my-exams' }
                         )} onClick={() => navigate('/app/my-exams')}>
-                        <FontAwesomeIcon className={clsx("ml-[20px]", { 'text-(--md-mint)': location.pathname === '/app/my-exams' })} icon={faPenClip} />
-                        <label className={clsx({ 'text-(--md-mint) font-semibold': location.pathname === '/app/my-exams' })}>My exams</label>
+                        <FontAwesomeIcon className={clsx("ml-[20px]", { 'text-(--md-mint)': location.pathname.startsWith('/app/my-exams') })} icon={faPenClip} />
+                        <label className={clsx({ 'text-(--md-mint) font-semibold': location.pathname.startsWith('/app/my-exams') })}>My exams</label>
                     </div>
                     <div className={
                         clsx('flex flex-row gap-[30px] h-[50px] w-[210px] items-center text-[18px]',
                             'rounded-[25px] cursor-pointer hover:text-(--md-mint) transition-colors duration-100 ease-in',
                             { 'bg-(--tab-hover-bg)': location.pathname === '/app/history' }
                         )} onClick={() => navigate('/app/history')}>
-                        <FontAwesomeIcon className={clsx("ml-[20px]", { 'text-(--md-mint)': location.pathname === '/app/history' })} icon={faHistory} />
-                        <label className={clsx({ 'text-(--md-mint) font-semibold': location.pathname === '/app/history' })}>History</label>
+                        <FontAwesomeIcon className={clsx("ml-[20px]", { 'text-(--md-mint)': location.pathname.startsWith('/app/history') })} icon={faHistory} />
+                        <label className={clsx({ 'text-(--md-mint) font-semibold': location.pathname.startsWith('/app/history') })}>History</label>
                     </div>
                 </div>
             </div>

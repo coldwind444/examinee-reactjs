@@ -16,10 +16,21 @@ export type LibraryPageProps = {
 export const LibraryPage = ({ type }: LibraryPageProps) => {
     const { jwt } = useAuth()
 
-    const [keyword, setKeyword] = useState<string|undefined>(undefined)
-    const [currSub, setCurrSub] = useState<number|undefined>(undefined)
+    const [keyword, setKeyword] = useState<string | undefined>(undefined)
+    const [currSub, setCurrSub] = useState<number | undefined>(undefined)
     const [exams, setExams] = useState<Exam[]>([])
     const [subjects, setSubjects] = useState<Subject[]>([])
+    const [subSection, setSubSection] = useState(0)
+
+    const handleSectionSwitch = (next: boolean) => {
+        if (next) {
+            const n = subjects.length
+            const maxSection = n / 4 + (n % 4 === 0 ? 0 : 1)
+            if (subSection < maxSection) setSubSection(prev => prev + 1)
+        } else {
+            if (subSection > 0) setSubSection(prev => prev - 1)
+        }
+    }
 
     const getTitles = () => {
         if (type === 1) {
@@ -101,7 +112,7 @@ export const LibraryPage = ({ type }: LibraryPageProps) => {
                         'focus-within:border-(--dodger-blue) transition-colors duration-150 ease-in'
                     )}>
                     <input className={clsx('border-none outline-none h-[40px] w-full pl-[15px] pr-[10px]')}
-                        type="search" placeholder="Search..." onChange={(e) => setKeyword(e.target.value)}/>
+                        type="search" placeholder="Search..." onChange={(e) => setKeyword(e.target.value)} />
                     <FontAwesomeIcon icon={faSearch} className='text-[rgba(0,0,0,0.4)] right-0 mr-[20px] absolute' />
                 </div>
                 <div className={clsx('flex flex-row gap-[10px] items-center')}>
@@ -109,7 +120,7 @@ export const LibraryPage = ({ type }: LibraryPageProps) => {
                         clsx('flex items-center justify-center aspect-square',
                             'h-[28px] text-[12px] text-white rounded-full bg-(--dark-mint)',
                             'cursor-pointer hover:opacity-90 transition-opacity duration-150 ease-in'
-                        )}>
+                        )} onClick={() => handleSectionSwitch(false)}>
                         <FontAwesomeIcon icon={faAngleLeft} />
                     </div>
                     <div className={clsx('flex-1 flex flex-row gap-[5px]')}>
@@ -122,7 +133,7 @@ export const LibraryPage = ({ type }: LibraryPageProps) => {
                                 }
                             )} onClick={() => setCurrSub(undefined)}>All
                         </div>
-                        {subjects.map((value, index) =>
+                        {subjects.filter((_, idx) => idx >= 4 * subSection && idx < 4 * subSection + 4).map((value, index) =>
                         (<div key={index} className={
                             clsx('h-[38px] min-w-[100px] w-fit border-2 rounded-[19px] flex items-center justify-center',
                                 'pl-[15px] pr-[15px] cursor-pointer transition-colors duration-150 ease-linear font-medium',
@@ -137,14 +148,14 @@ export const LibraryPage = ({ type }: LibraryPageProps) => {
                         clsx('flex items-center justify-center aspect-square',
                             'h-[28px] text-[12px] text-white rounded-full bg-(--dark-mint)',
                             'cursor-pointer hover:opacity-90 transition-opacity duration-150 ease-in'
-                        )}>
+                        )} onClick={() => handleSectionSwitch(true)}>
                         <FontAwesomeIcon icon={faAngleRight} />
                     </div>
                 </div>
             </div>
             <div className={clsx('flex flex-row gap-[20px] flex-wrap h-[500px] w-full overflow-y-scroll')}>
                 {exams.map((exam) => (
-                    <ExamCard key={exam.id} exam={exam} isAttempt={type === 3}/>
+                    <ExamCard key={exam.id} exam={exam} isAttempt={type === 3} />
                 ))}
             </div>
         </div>

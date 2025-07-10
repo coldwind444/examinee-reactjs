@@ -1,20 +1,24 @@
-import { createContext, useState, useContext, type PropsWithChildren, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import { useAuth } from "./AuthContext"
-import { useLocation } from "react-router-dom"
+import { createContext, useState, useContext, type PropsWithChildren, type SetStateAction } from "react"
+import type { Exam } from "../models/responses/exam/Exam"
 
 export type AppContextType = {
-    
+    doingEid: Exam | undefined
+    setDoingEid: React.Dispatch<SetStateAction<Exam|undefined>>
+    detailEid: Exam | undefined
+    setDetailEid: React.Dispatch<SetStateAction<Exam|undefined>>
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined)
 
 export const AppProvider = ({ children }: PropsWithChildren<{}>) => {
+    const [doingEid, setDoingEid] = useState<Exam|undefined>()
+    const [detailEid, setDetailEid] = useState<Exam|undefined>()
 
     return (
         <AppContext.Provider value={
             {
-
+                doingEid, setDoingEid,
+                detailEid, setDetailEid
             }}>
             {children}
         </AppContext.Provider>

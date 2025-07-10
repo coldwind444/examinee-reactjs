@@ -3,6 +3,8 @@ import { faCheckCircle } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import clsx from "clsx"
 import type { Exam } from "../../models/responses/exam/Exam"
+import { useApp } from "../../providers/AppContext"
+import { useNavigate } from "react-router-dom"
 
 export type ExamCardProps = {
     exam: Exam
@@ -10,6 +12,19 @@ export type ExamCardProps = {
 }
 
 export const ExamCard = ({ exam, isAttempt = false }: ExamCardProps) => {
+    const { setDoingEid, setDetailEid } = useApp()
+    const navigate = useNavigate()
+
+    const handleAttempt = () => {
+        setDoingEid(exam)
+        navigate('/exam/attend')
+    }
+
+    const handleViewDetails = () => {
+        setDetailEid(exam)
+        navigate('/app/history/attempts')
+    }
+
     return (
         <div className={clsx('flex flex-col h-[290px] w-[250px] p-[15px] border-1 border-[rgba(0,0,0,0.2)] rounded-[15px]')}>
             <div className={clsx('flex flex-row gap-[15px]')}>
@@ -37,7 +52,7 @@ export const ExamCard = ({ exam, isAttempt = false }: ExamCardProps) => {
                             'border-2 border-(--deep-pink) ml-auto mr-auto rounded-[10px] text-(--deep-pink)',
                             'cursor-pointer hover:bg-(--deep-pink) hover:text-white',
                             'transition-colors duration-150 ease-in'
-                        )}>
+                        )} onClick={() => handleViewDetails()}>
                         Details
                     </div>
                 ) :
@@ -47,7 +62,7 @@ export const ExamCard = ({ exam, isAttempt = false }: ExamCardProps) => {
                             'border-2 border-(--md-orange) ml-auto mr-auto rounded-[10px] text-(--md-orange)',
                             'cursor-pointer hover:bg-(--md-orange) hover:text-white',
                             'transition-colors duration-150 ease-in'
-                        )}>
+                        )} onClick={() => handleAttempt()}>
                         Attempt
                     </div>
                 )}

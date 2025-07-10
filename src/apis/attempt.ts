@@ -44,7 +44,7 @@ export const getAttempts = async (token: string, eid: number): Promise<ApiRespon
 
 export const submit = async (token: string, eid: number, body: AttemptSubmitRequest): Promise<ApiResponse<boolean>> => {
     const api = createApiWithToken(token)
-    const res = await api.post('/attempts', body, {
+    const res = await api.post('/attempts/submit', body, {
         params: {
             eid: eid
         }
