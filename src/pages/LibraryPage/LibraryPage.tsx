@@ -1,4 +1,4 @@
-import { faAngleLeft, faAngleRight, faSearch } from "@fortawesome/free-solid-svg-icons"
+import { faAngleLeft, faAngleRight, faPlusCircle, faSearch } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import clsx from "clsx"
 import { useEffect, useState } from "react"
@@ -8,6 +8,7 @@ import { getAllSubs, getExamsByFilters, getMyExamsByFilters } from "../../apis/e
 import type { Exam } from "../../models/responses/exam/Exam"
 import { getHistoryByFilters } from "../../apis/attempt"
 import type { Subject } from "../../models/responses/exam/Subject"
+import { useNavigate } from "react-router-dom"
 
 export type LibraryPageProps = {
     type: number
@@ -15,12 +16,14 @@ export type LibraryPageProps = {
 
 export const LibraryPage = ({ type }: LibraryPageProps) => {
     const { jwt } = useAuth()
+    const navigate = useNavigate()
 
     const [keyword, setKeyword] = useState<string | undefined>(undefined)
     const [currSub, setCurrSub] = useState<number | undefined>(undefined)
     const [exams, setExams] = useState<Exam[]>([])
     const [subjects, setSubjects] = useState<Subject[]>([])
     const [subSection, setSubSection] = useState(0)
+
 
     const handleSectionSwitch = (next: boolean) => {
         if (next) {
@@ -105,6 +108,18 @@ export const LibraryPage = ({ type }: LibraryPageProps) => {
                 <label className={clsx('text-[25px] font-semibold')}>{getTitles()?.title}</label>
                 <label className={clsx('font-medium text-[rgba(0,0,0,0.5)]')}>{getTitles()?.sub}</label>
             </div>
+            {type === 2 && 
+            (
+                <div className={
+                    clsx("flex flex-row gap-[10px] items-center justify-center cursor-pointer",
+                        'font-medium text-[18px] absolute right-0 mr-[200px] mt-[50px]',
+                        'hover:gap-[20px] transition-[gap] duration-100 ease-in'
+                    )} onClick={() => navigate('/app/my-exams/publish')}>
+                    <label>New exam</label>
+                    <FontAwesomeIcon className="text-(--royal-blue)" icon={faPlusCircle}/>
+                </div>
+            )
+            }
             <div className={clsx('flex flex-row gap-[10px] items-center')}>
                 <div className={
                     clsx('flex justify-center items-center relative',

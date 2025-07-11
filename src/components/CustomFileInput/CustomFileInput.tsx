@@ -7,7 +7,7 @@ export type CustomFileInputProps = {
     width?: string
     height?: string
     hint?: string
-    passFileName?: (val: string) => void
+    passFileName: (file: File|undefined) => void
 }
 
 export const CustomFileInput = ({ width = '400px', height = '40px', hint, passFileName }: CustomFileInputProps) => {
@@ -22,11 +22,12 @@ export const CustomFileInput = ({ width = '400px', height = '40px', hint, passFi
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
-            setFileName(file.name); 
+            setFileName(file.name)
+            passFileName(file)
         } else {
-            setFileName("");
+            setFileName('')
+            passFileName(undefined)
         }
-        passFileName?.(fileName);
     };
 
     return (

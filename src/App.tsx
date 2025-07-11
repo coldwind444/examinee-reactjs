@@ -29,7 +29,7 @@ function App() {
         <Route path="my-exams" element={<LibraryPage type={2}/>}/>
         <Route path="history" element={<LibraryPage type={3}/>}/>
         <Route path="history/attempts" element={<AttemptPage/>}/>
-        <Route path="my-exam/publish" element={<PublishPage/>}/>
+        <Route path="my-exams/publish" element={<PublishPage/>}/>
         <Route path="history/attempts/result" element={<ResultPage/>}/>
       </Route>
       <Route path="/exam/attend" element={<ExamPage/>}/>

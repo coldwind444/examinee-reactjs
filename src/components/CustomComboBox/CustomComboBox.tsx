@@ -21,6 +21,7 @@ export const CustomComboBox = ({ dataList = [], width = '400px', height = '40px'
                     {dataList.map((val, idx) => (
                         <option key={idx} value={val} />
                     ))}
+                    <option value={'Other'}/>
                 </datalist>
         </div>
     )

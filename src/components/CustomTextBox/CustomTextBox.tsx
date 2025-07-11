@@ -10,10 +10,11 @@ export type CustomTextBoxProps = {
     height?: string
     min?: string
     max?: number
+    disabled?:boolean
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export const CustomTextBox = ({ type = 'text', hint, width = '400px', height = '50px', min = '0', max, onChange }: CustomTextBoxProps) => {
+export const CustomTextBox = ({ type = 'text', hint, width = '400px', height = '50px', min = '0', max, disabled = false, onChange }: CustomTextBoxProps) => {
     const [showPassword, setShowPassword] = useState(false)
 
     return (
@@ -27,7 +28,7 @@ export const CustomTextBox = ({ type = 'text', hint, width = '400px', height = '
                 (<input required className={clsx('h-[40px] w-full border-none outline-none')}
                     onChange={onChange} type={showPassword ? 'text' : 'password'} placeholder={hint} />) :
                 (<input required className={clsx('h-[40px] w-full border-none outline-none')}
-                    onChange={onChange} type={type} placeholder={hint} min={min} maxLength={max}/>)
+                    onChange={onChange} type={type} placeholder={hint} min={min} maxLength={max} disabled={disabled}/>)
             }
             {type === 'password' && (
                 <div className={clsx('text-[rgba(0,0,0,0.5)] cursor-pointer')} onClick={() => setShowPassword(prev => !prev)}>

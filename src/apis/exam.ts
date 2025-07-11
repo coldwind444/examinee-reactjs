@@ -2,7 +2,7 @@ import type { ApiResponse } from "../models/responses/ApiResponse"
 import type { Exam } from "../models/responses/exam/Exam"
 import type { Subject } from "../models/responses/exam/Subject"
 import type { Question } from "../models/responses/question/Question"
-import { createApiWithToken } from "./base"
+import { createApiWithToken, createFormApiWithToken } from "./base"
 
 export const getAllExam = async (token: string): Promise<ApiResponse<Exam[]>> => {
     const api = createApiWithToken(token)
@@ -64,17 +64,8 @@ export const getExamQuestions = async (token: string, eid: number): Promise<ApiR
     return res.data
 }
 
-
-/*
-    @Post('add')
-    @ApiBearerAuth('jwt')
-    @UseGuards(AppAuthGuard)
-    async addExam(@Req() req, @Body() body : ExamCreateDto) : Promise<ApiResponse<Exam>> {
-        const res = await this.examService.addExam(req.user.userid, body)
-        return {
-            status: 200,
-            message: 'Add success.',
-            data: res
-        }
-    }
-*/
+export const uploadExamViaExcel = async (token: string, formData: FormData) : Promise<ApiResponse<Exam>> => {
+    const api = createFormApiWithToken(token)
+    const res = await api.post('/exams/upload-excel', formData)
+    return res.data
+}
