@@ -16,6 +16,7 @@ export const ExamCard = ({ exam, isAttempt = false }: ExamCardProps) => {
     const navigate = useNavigate()
 
     const handleAttempt = () => {
+        if (!confirm('Are you sure to start this exam ?')) return
         setDoingEid(exam)
         navigate('/exam/attend')
     }

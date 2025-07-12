@@ -63,7 +63,7 @@ export const HomePage = () => {
                     <label className={clsx('text-[18px] font-semibold mt-[10px]')}>Exams done</label>
                     <FontAwesomeIcon className="absolute text-[25px] mr-[20px] mt-[10px] right-0 text-(--royal-blue)" icon={faFileText} />
                     <label className="text-[40px] font-semibold">{doneExams}</label>
-                    <Link className="text-(--royal-blue) hover:underline cursor-pointer font-semibold" to=''>
+                    <Link className="text-(--royal-blue) hover:underline cursor-pointer font-semibold" to='/app/history'>
                         Details <span><FontAwesomeIcon icon={faAngleRight} /></span>
                     </Link>
                 </div>
@@ -71,7 +71,7 @@ export const HomePage = () => {
                     <label className={clsx('text-[18px] font-semibold mt-[10px]')}>Attempts</label>
                     <FontAwesomeIcon className="absolute text-[25px] mr-[20px] mt-[10px] right-0 text-(--md-orange)" icon={faPenToSquare} />
                     <label className="text-[40px] font-semibold">{totalAttempts}</label>
-                    <Link className="text-(--md-orange) hover:underline cursor-pointer font-semibold" to=''>
+                    <Link className="text-(--md-orange) hover:underline cursor-pointer font-semibold" to='/app/history'>
                         Details <span><FontAwesomeIcon icon={faAngleRight} /></span>
                     </Link>
                 </div>

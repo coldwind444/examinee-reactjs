@@ -53,13 +53,13 @@ export const LoginPage = () => {
                     </label>
                 </div>
             </form>
-            <div className={
+            <a className={
                 clsx('flex flex-row items-center justify-center h-[50px] w-[400px] bg-(--gray-green) font-semibold',
                     'rounded-[8px] cursor-pointer hover:opacity-90 transition-opacity duration-150 mt-[20px] gap-[20px]'
-                )} onClick={() => navigate('http://localhost:3000/auth/google/login')}>
+                )} href="'http://localhost:3000/auth/google/login'">
                 <img src={google} className={clsx('aspect-square h-[20px]')} />
                 <label className="text-black text-[16px]">Continue with Google</label>
-            </div>
+            </a>
             <label className={clsx('mt-[15px] text-[14px] text-[rgba(0,0,0,0.6)] font-medium')}>
                 Don't have an account ? <span className={clsx('text-(--md-orange) cursor-pointer hover:underline')} 
                 onClick={() => {formRef.current?.reset(); navigate('/auth/signup')}}>Sign up</span>
